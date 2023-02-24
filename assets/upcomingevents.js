@@ -8,10 +8,11 @@ for (let event of data.events){
    if (eventDate > currentDate){
        htmlEvents += `<div class="card" style="width: 20rem;">
        <img src="${event.image}" class="card-img-top" alt="...">
-       <div class="card-body">
+       <div class="card-body d-flex flex-column justify-content-between">
            <h5 class="card-title">${event.name}</h5>
             <p class="card-text">${event.description}</p>
-            <a href="./details.html" class="btn btn-primary">Go somewhere</a><span class="ms-3 text-muted">Price: $${event.price}<span>
+            <p class="text-muted">Price: $${event.price}<p>
+            <a href="./details.html" class="btn btn-primary ">Buy ticket</a>
        </div>
         </div>`; 
        } 
