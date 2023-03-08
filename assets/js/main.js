@@ -1,39 +1,17 @@
-// // cards dinamicas
-// let htmlEvents = "";
+// cards dinamicas
+
+
+let htmlEvents = "";
+let contenedorCard = document.querySelector('div .eventsCards');
+for (let event of data.events){
  
-// for (let event of data.events){
- 
-//        htmlEvents += `<div class="card" style="width: 20rem;">
-//        <img src="${event.image}" class="card-img-top" alt="...">
-//        <div class="card-body d-flex flex-column justify-content-between">
-//            <h5 class="card-title">${event.name}</h5>
-//             <p class="card-text">${event.description}</p>
-//             <p class="text-muted">Price: $${event.price}<p>
-//             <a href="./details.html" class="btn btn-primary ">Buy ticket</a>
-//        </div>
-//         </div>`; 
+       htmlEvents += crearCard(event);
+   }
+   contenedorCard.innerHTML += htmlEvents;
 
-
-//    }
-
-//    document.querySelector('div .eventsCards').innerHTML += htmlEvents;
-
-  
-
-
-
-// array de categorias
- categorias=[];
- data.events.forEach(evento => {
-    if(!categorias.includes(evento.category)){
-       categorias.push(evento.category);
-    }
-});   
-
-    console.log(categorias);  
 
 // generar checkbox dinamicos
-let form = document.querySelector('div form div');
+let contenedorCheckbox = document.querySelector('form .contenedorCheckbox');
 let htmlCategorias = "";
 for(let categoria of categorias){
      htmlCategorias +=
@@ -42,30 +20,58 @@ for(let categoria of categorias){
           <label class="form-check-label" for="${categoria}checkbox">${categoria}</label>
       </div>`
 }
- 
- form.innerHTML = htmlCategorias;
+ contenedorCheckbox.innerHTML = htmlCategorias;
+  
 
  // agregrar eschucha de evento a los checkbox y crear las cards segun la categoria
- let checkboxInput = document.querySelectorAll("div input");
- checkboxInput.forEach(input => {input.onclick = () => {
-     htmlEvents = "";
-     document.querySelector('div .eventsCards').innerHTML += htmlEvents;
-     let categoria = input.value;
-     console.log(categoria);
-     for (let event of data.events) {
-          if(categoria == event.category && input.checked == true ) {
-               
-       htmlEvents += `<div class="card" style="width: 20rem;">
-       <img src="${event.image}" class="card-img-top" alt="...">
-       <div class="card-body d-flex flex-column justify-content-between">
-           <h5 class="card-title">${event.name}</h5>
-            <p class="card-text">${event.description}</p>
-            <p class="text-muted">Price: $${event.price}<p>
-            <a href="./details.html?id=${event._id}" class="btn btn-primary ">Buy ticket</a>
-       </div>
-        </div>`; ; 
-          }
-     }
-     document.querySelector('div .eventsCards').innerHTML = htmlEvents;
-   }  
- });
+ let checkboxInput = document.querySelectorAll(".form-check-input");
+
+ checkboxInput.forEach(input => input.onchange = () => {
+     let htmlResultados = "";
+     let categoriaSeleccionada=[];
+     checkboxInput.forEach(input => {
+       if (input.checked){
+          categoriaSeleccionada.push(input.value);
+      }
+    })  
+    console.log(categoriaSeleccionada);
+
+    if(categoriaSeleccionada.length > 0){
+      data.events.filter(event => categoriaSeleccionada.includes(event.category)).forEach(events =>{
+        htmlResultados += crearCard(events)});
+    } else{
+      data.events.forEach(events =>{
+        htmlResultados += crearCard(events)});
+    }
+    contenedorCard.innerHTML = htmlResultados;
+  });
+
+// busqueda por texto
+
+let inputSearch = document.getElementById("search");
+let botonBusqueda = document.getElementById("botonSearch");
+botonBusqueda.onsubmit = (e) => {
+  e.preventDefault();
+  let htmlResultadoTexto="";
+  let textoIngresado = inputSearch.value.toLowerCase().trim();
+  let resultadosBusqueda = [];
+  
+
+  for (let event of data.events){
+    if (event.name.toLowerCase().includes(textoIngresado)
+    ||event.description.toLowerCase().includes(textoIngresado)){
+      htmlResultadoTexto += crearCard(event);
+      resultadosBusqueda.push(event)
+      
+    } 
+  }
+    if(resultadosBusqueda.length == 0){
+    htmlResultadoTexto += `<h4 class="text-muted">No es posible encontrar su busqueda</h4>`
+
+  }
+  console.log(resultadosBusqueda)
+  contenedorCard.innerHTML = htmlResultadoTexto;
+}
+
+ 
+

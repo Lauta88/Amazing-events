@@ -171,3 +171,31 @@ let data = {
       }
     ]
   };
+
+
+  // funcion cards dinamicas
+  function crearCard(event){
+    let card = `<div class="card" style="width: 20rem;">
+        <img src="${event.image}" class="card-img-top" alt="...">
+        <div class="card-body d-flex flex-column justify-content-between">
+            <h5 class="card-title">${event.name}</h5>
+              <p class="card-text">${event.description}</p>
+              <p class="text-muted">Price: $${event.price}<p>
+              <a href="./details.html?id=${event._id}" class="btn btn-primary ">+ More</a>
+        </div>
+      </div>`; 
+      return card;
+  }
+     
+
+  
+// array de categorias
+let categorias=[];
+data.events.forEach(evento => {
+   if(!categorias.includes(evento.category)){
+      categorias.push(evento.category);
+   }
+});   
+console.log(categorias);  
+  
+
