@@ -146,6 +146,15 @@ form{
     font-size: 14px;
 }
 
+.tables thead tr th {
+    width: 20%;
+    text-align: center;
+}
+
+.tables tbody tr td {
+    text-align: center;
+}
+
 .cardhorizontal img{
     object-fit: cover;
     height: 300px;

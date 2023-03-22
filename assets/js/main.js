@@ -1,5 +1,6 @@
-// cards dinamicas
 
+
+// cards dinamicas
 
 let htmlEvents = "";
 let contenedorCard = document.querySelector('div .eventsCards');
@@ -66,7 +67,7 @@ botonBusqueda.onsubmit = (e) => {
     } 
   }
     if(resultadosBusqueda.length == 0){
-    htmlResultadoTexto += `<h4 class="text-muted">No es posible encontrar su busqueda</h4>`
+    htmlResultadoTexto += `<h4 class="text-muted">Your search cannot be found</h4>`
 
   }
   console.log(resultadosBusqueda)
@@ -74,4 +75,3 @@ botonBusqueda.onsubmit = (e) => {
 }
 
  
-

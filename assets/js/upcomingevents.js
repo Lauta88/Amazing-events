@@ -1,3 +1,5 @@
+
+
 //crea cards dinamicas
 
 let htmlEvents = "";
